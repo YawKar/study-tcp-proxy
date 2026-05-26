@@ -7,3 +7,15 @@ edition = "2024"
 rustfmt-unstable = { version = "^1.0.0" }
 
 [dependencies]
+anyhow = "1.0.102"
+clap = { version = "4.6.1", features = ["derive"] }
+metrics = "0.24.6"
+metrics-exporter-prometheus = "0.18.3"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.150"
+serde_path_to_error = "0.1.20"
+thiserror = "2.0.18"
+tokio = { version = "1.52.3", features = ["full"] }
+tokio-util = "0.7.18"
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter", "json"] }
