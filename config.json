@@ -1,0 +1,88 @@
+{
+  "Targets": {
+    "tcp-echo.fly.dev:5001": {
+      "HealthCheck": {
+        "Type": "Passive",
+        "FailureCountThreshold": 3,
+        "RecoveryTimeout": "10s"
+      }
+    },
+    "tcp-echo.fly.dev:5002": {
+      "HealthCheck": {
+        "Type": "TcpConnect",
+        "FailureCountThreshold": 3,
+        "Interval": "15s",
+        "Timeout": "10s"
+      }
+    },
+    "tcp-echo.fly.dev:6001": {
+      "HealthCheck": {
+        "Type": "TcpSendExpect",
+        "FailureCountThreshold": 3,
+        "Interval": "15s",
+        "Timeout": "10s",
+        "Send": "PING",
+        "Expect": "PONG"
+      }
+    }
+  },
+  "Apps": [
+    {
+      "Name": "google-mirror",
+      "Ports": [1234],
+      "Targets": [
+        "google.com:443"
+      ]
+    },
+    {
+      "Name": "five-thousand",
+      "Ports": [
+        5001,
+        5200,
+        5300,
+        5400
+      ],
+      "Targets": [
+        "tcp-echo.fly.dev:5001",
+        "tcp-echo.fly.dev:5002"
+      ],
+      "LoadBalancerStrategy": {
+        "Type": "RoundRobin"
+      },
+      "Meta": {
+        "tcp-echo.fly.dev:5001": {
+          "LoadBalancerStrategyMeta": {
+            "Type": "RoundRobin"
+          }
+        }
+      }
+    },
+    {
+      "Name": "six-thousand",
+      "Ports": [
+        6001,
+        6200,
+        6300,
+        6400
+      ],
+      "Targets": [
+        "tcp-echo.fly.dev:6001",
+        "tcp-echo.fly.dev:6002",
+        "bad.target.for.testing:6003"
+      ]
+    },
+    {
+      "Name": "seven-thousand",
+      "Ports": [
+        7001,
+        7200,
+        7300,
+        7400
+      ],
+      "Targets": [
+        "tcp-echo.fly.dev:7001",
+        "tcp-echo.fly.dev:7002"
+      ]
+    }
+  ]
+}
