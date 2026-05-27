@@ -1,5 +1,5 @@
 {
-  description = "preattempt-fly.io-platform-engineer";
+  description = "study-tcp-proxy";
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -39,7 +39,7 @@
 
             shellHook = ''
               pre-commit uninstall && pre-commit install
-              echo "[FLAKE] DevShell for preattempt-fly.io-platform-engineer development is loaded!"
+              echo "[FLAKE] DevShell for study-tcp-proxy development is loaded!"
             '';
           };
         };
